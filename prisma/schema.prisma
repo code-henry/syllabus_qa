@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model QA {
+  id         String        @id @default(uuid())
+  question   String
+  answerMd   String        @map("answer_md")
+  createdAt  DateTime      @default(now()) @map("created_at")
+  viewCount  Int           @default(0) @map("view_count")
+  courseCode String?       @map("course_code")
+  year       Int?
+  tags       String[]?
+  citations  QACitation[]
+
+  @@map("qa")
+}
+
+model QACitation {
+  id       String  @id @default(uuid())
+  qaId     String  @map("qa_id")
+  section  String?
+  pageFrom Int?    @map("page_from")
+  pageTo   Int?    @map("page_to")
+
+  qa       QA      @relation(fields: [qaId], references: [id])
+
+  @@map("qa_citation")
+}
