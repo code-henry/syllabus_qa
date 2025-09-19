@@ -94,7 +94,7 @@ export default function AskPage() {
         <CardHeader>
           <CardTitle>東大シラバスQ&amp;A</CardTitle>
           <CardDescription>
-            シラバスに関する質問を入力してください。
+            シラバス（履修の手引き）に関する質問を入力してください。
           </CardDescription>
         </CardHeader>
         <CardContent>

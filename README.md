@@ -14,7 +14,7 @@ Syllabus-QA (Work in Progress)
   - CORS: `http://localhost:3000` / `http://127.0.0.1:3000`
 - 未実装
   - `/api/ingest`（PDFアップロード→Vector Store 登録）
-  - DB 永続化・検索（Prisma/SQLは未着手）
+- DB 永続化・検索（未着手。将来はPostgres + Python側ORMを想定）
   - 公開ページ（/search, /q/:id）や管理者導線
 
 セットアップ（ローカル）
@@ -63,6 +63,6 @@ CI（GitHub Actions）の状態と対処
 
 今後のTODO
 - `/api/ingest` の実装（Vector Store への登録と完了待ち）
-- Q&A 永続化（Postgres/Prisma）と検索・詳細ページの実装
+- Q&A 永続化（Postgres）と検索・詳細ページの実装
 - `/ask` のI/Oスキーマに対するテスト追加（正常系/タイムアウト/キー未設定）
 - アクセス制御（管理者のみ ingest 可能）と Rate Limit
