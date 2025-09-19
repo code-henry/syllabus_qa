@@ -55,7 +55,16 @@ export default function AskPage() {
           body: JSON.stringify({ question }),
         })
         if (!res.ok) {
-          throw new Error(`Request failed: ${res.status}`)
+          let detail = ""
+          try {
+            const data = await res.json()
+            detail = data?.detail || JSON.stringify(data)
+          } catch {
+            try {
+              detail = await res.text()
+            } catch {}
+          }
+          throw new Error(`Request failed: ${res.status}${detail ? " - " + detail : ""}`)
         }
         const data = (await res.json()) as AskResponse
         setResult(data)

@@ -6,6 +6,7 @@ from typing import List, Optional, Dict, Any
 import time
 import os
 from dotenv import load_dotenv
+from pathlib import Path
 
 try:
     # OpenAI SDK v1
@@ -13,7 +14,14 @@ try:
 except Exception:  # pragma: no cover
     OpenAI = None  # type: ignore
 
-load_dotenv()
+# Load envs from several common locations
+load_dotenv()  # current working directory
+_here = Path(__file__).resolve().parent
+load_dotenv(_here / ".env")  # apps/api/.env
+try:
+    load_dotenv(_here.parent.parent / ".env")  # repo root .env
+except Exception:
+    pass
 
 app = FastAPI()
 
