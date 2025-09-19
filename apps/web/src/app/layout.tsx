@@ -13,7 +13,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      {/* suppress hydration mismatches caused by browser extensions (e.g., Grammarly) */}
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }
