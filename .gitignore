@@ -46,10 +46,9 @@ Thumbs.db
 .idea/
 .vscode/
 
-# Node.js lockfiles (optional)
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
+# Node.js lockfiles
+# Keep lockfiles committed so CI can use `npm ci`.
+# If you want to ignore lockfiles locally, do so via global gitignore.
 
 # Python caches (any depth)
 **/__pycache__/
