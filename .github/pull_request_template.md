@@ -1,17 +1,15 @@
-## 概要
-変更内容を簡潔に説明してください。
+## Summary
 
-## 変更点
-- [ ] 機能追加 / 仕様変更
-- [ ] バグ修正
-- [ ] ドキュメント/CI/整備
+-
 
-## チェックリスト
-- [ ] Web: lint / type-check / build が成功
-- [ ] API: ruff / mypy / pytest が成功
-- [ ] 機密情報(.env/鍵)を含まない
-- [ ] README/コメントに最新の仕様を反映
+## Type of change
 
-## スクリーンショット / 動作確認
-（必要に応じて添付）
+- [ ] Feature
+- [ ] Fix
+- [ ] Chore
 
+## Checklist
+
+- [ ] Linted and tests pass
+- [ ] Updated docs if needed
+- [ ] Secrets and envs are handled securely

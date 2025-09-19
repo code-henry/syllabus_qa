@@ -1,12 +1,12 @@
+import os
+import time
+from pathlib import Path
+from typing import Any, List, Optional
+from uuid import uuid4
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from uuid import uuid4
-from typing import List, Optional, Dict, Any
-import time
-import os
-from dotenv import load_dotenv
-from pathlib import Path
 
 try:
     # OpenAI SDK v1
