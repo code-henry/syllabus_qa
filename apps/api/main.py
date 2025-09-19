@@ -2,7 +2,7 @@ import os
 import time
 from pathlib import Path
 from dotenv import load_dotenv
-from typing import Any, List, Optional
+from typing import Any, Optional
 from uuid import uuid4
 
 from fastapi import FastAPI, HTTPException
@@ -55,7 +55,7 @@ class Citation(BaseModel):
 class AskResponse(BaseModel):
     qaId: str
     answerMd: str
-    citations: List[Citation]
+    citations: list[Citation]
 
 
 @app.get("/")
@@ -114,8 +114,8 @@ def ask(req: AskRequest):
                 thread_id=thread.id, order="desc", limit=5
             )
 
-            answer_parts: List[str] = []
-            citation_items: List[Citation] = []
+            answer_parts: list[str] = []
+            citation_items: list[Citation] = []
             seen_citations: set[str] = set()
             for m in msgs.data:
                 if m.role != "assistant":
@@ -126,7 +126,7 @@ def ask(req: AskRequest):
                         if text and getattr(text, "value", None):
                             answer_parts.append(text.value)
                         # Parse annotations for file citations
-                        annotations: List[Any] = getattr(text, "annotations", []) or []
+                        annotations: list[Any] = getattr(text, "annotations", []) or []
                         for ann in annotations:
                             if getattr(ann, "type", None) == "file_citation":
                                 fc = getattr(ann, "file_citation", None)
@@ -155,7 +155,7 @@ def ask(req: AskRequest):
 
             answer_md = "\n\n".join(answer_parts) if answer_parts else ""
         except Exception as e:  # pragma: no cover
-            raise HTTPException(status_code=502, detail=f"OpenAI Assistants error: {e}")
+            raise HTTPException(status_code=502, detail=f"OpenAI Assistants error: {e}") from e
 
         return AskResponse(qaId=qa_id, answerMd=answer_md, citations=citation_items)
     else:
@@ -163,7 +163,8 @@ def ask(req: AskRequest):
         model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
         system = (
             "You are a helpful syllabus Q&A assistant. "
-            "Answer concisely in Markdown. If the question requires PDF-specific context we don't have, "
+            "Answer concisely in Markdown. "
+            "If the question requires PDF-specific context we don't have, "
             "say that the answer may be incomplete until the syllabus PDF is ingested."
         )
         try:
@@ -177,7 +178,7 @@ def ask(req: AskRequest):
             )
             answer_md = resp.choices[0].message.content or ""
         except Exception as e:  # pragma: no cover
-            raise HTTPException(status_code=502, detail=f"OpenAI error: {e}")
+            raise HTTPException(status_code=502, detail=f"OpenAI error: {e}") from e
 
-        citations: List[Citation] = []
+        citations: list[Citation] = []
         return AskResponse(qaId=qa_id, answerMd=answer_md, citations=citations)
