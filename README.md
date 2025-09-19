@@ -8,8 +8,7 @@ Overview
 Quick Start
 - API
   - Create apps/api/.env with:
-    - OPENAI_API_KEY=sk-...
-    - OPENAI_ASSISTANT_ID=asst_... (optional; if set, Assistants API is used)
+    - See apps/api/.env.example
   - pip install -r apps/api/requirements.txt
   - Run: uvicorn apps.api.main:app --reload --port 8000 (run at repo root)
 - Web
@@ -28,7 +27,11 @@ Notes
 - CORS allows http://localhost:3000 and http://127.0.0.1:3000.
 - To target http://127.0.0.1:8000 from web, set NEXT_PUBLIC_API_URL.
 
+Development Quality
+- API tooling: ruff (lint), mypy (type-check), pytest (tests)
+- Web CI: eslint, type-check, build
+- See .github/workflows/* for CI setup.
+
 Next Steps
 - /api/ingest: Upload PDF to Vector Store (Assistants file_search) and attach.
 - Persist Q&A to DB and implement search/detail pages.
-
