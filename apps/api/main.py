@@ -1,6 +1,7 @@
 import os
 import time
 from pathlib import Path
+from dotenv import load_dotenv
 from typing import Any, List, Optional
 from uuid import uuid4
 
