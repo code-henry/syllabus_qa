@@ -29,8 +29,14 @@ jobs:
           cache: 'npm'
           cache-dependency-path: apps/web/package-lock.json
 
-      - name: Install deps
-        run: npm ci
+      - name: Install deps (prefer ci)
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            echo "package-lock.json not found; using npm install"
+            npm install
+          fi
 
       - name: Lint
         run: npm run lint --if-present
