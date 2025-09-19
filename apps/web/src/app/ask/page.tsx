@@ -92,19 +92,19 @@ export default function AskPage() {
     <div className="flex justify-center items-center min-h-screen p-4">
       <Card className="w-full max-w-[720px]">
         <CardHeader>
-          <CardTitle>Syllabus QA</CardTitle>
+          <CardTitle>東大シラバスQ&amp;A</CardTitle>
           <CardDescription>
-            Ask a question about the syllabus.
+            シラバスに関する質問を入力してください。
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={onSubmit} className="space-y-4">
             <div className="grid w-full items-center gap-2">
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="question">Your Question</Label>
+                <Label htmlFor="question">質問内容</Label>
                 <Input
                   id="question"
-                  placeholder="e.g. What are the graduation requirements?"
+                  placeholder="例）卒業要件は何単位ですか？"
                   value={question}
                   onChange={(e) => setQuestion(e.target.value)}
                   disabled={loading}
@@ -113,10 +113,10 @@ export default function AskPage() {
             </div>
             <div className="flex justify-end gap-2">
               <Button type="button" variant="outline" onClick={onCancel} disabled={loading}>
-                Cancel
+                クリア
               </Button>
               <Button type="submit" disabled={!question.trim() || loading}>
-                {loading ? "Asking..." : "Ask"}
+                {loading ? "送信中..." : "質問する"}
               </Button>
             </div>
           </form>
@@ -128,7 +128,7 @@ export default function AskPage() {
           {result && (
             <div className="mt-6 space-y-4">
               <div>
-                <div className="text-sm font-semibold mb-1">Answer</div>
+                <div className="text-sm font-semibold mb-1">回答</div>
                 <div className="prose max-w-none prose-sm border rounded-md p-3 bg-muted/30">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {result.answerMd}
@@ -137,7 +137,7 @@ export default function AskPage() {
               </div>
               {result.citations?.length ? (
                 <div>
-                  <div className="text-sm font-semibold mb-1">Citations</div>
+                  <div className="text-sm font-semibold mb-1">引用</div>
                   <ul className="list-disc pl-6 text-sm">
                     {result.citations.map((c, i) => (
                       <li key={i}>
