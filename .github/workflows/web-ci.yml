@@ -1,0 +1,28 @@
+name: Web CI
+
+on:
+  push:
+    paths:
+      - 'repo/apps/web/**'
+      - 'repo/package.json'
+      - '.github/workflows/web-ci.yml'
+  pull_request:
+    paths:
+      - 'repo/apps/web/**'
+      - 'repo/package.json'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - name: Install
+        run: npm -C repo/apps/web ci || npm -C repo/apps/web install
+      - name: Lint
+        run: npm -C repo/apps/web run lint --if-present
+      - name: Build
+        run: npm -C repo/apps/web run build --if-present

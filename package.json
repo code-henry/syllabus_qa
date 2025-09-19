@@ -1,0 +1,16 @@
+{
+  "name": "syllabus-qa",
+  "private": true,
+  "workspaces": [
+    "apps/web",
+    "apps/api"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "lint": "echo 'run per app'",
+    "test": "echo 'run per app'",
+    "build": "echo 'run per app'"
+  }
+}
