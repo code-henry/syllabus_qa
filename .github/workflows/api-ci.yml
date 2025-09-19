@@ -1,0 +1,41 @@
+name: API CI
+
+on:
+  push:
+    branches: [ main, develop, '**/*' ]
+    paths:
+      - 'apps/api/**'
+      - '.github/workflows/api-ci.yml'
+  pull_request:
+    branches: [ '**' ]
+    paths:
+      - 'apps/api/**'
+      - '.github/workflows/api-ci.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r apps/api/requirements.txt
+
+      - name: Import smoke test
+        run: |
+          python - <<'PY'
+          import importlib
+          import sys
+          m = importlib.import_module('apps.api.main')
+          assert hasattr(m, 'app'), 'FastAPI app not found'
+          print('Import OK')
+          PY
+
