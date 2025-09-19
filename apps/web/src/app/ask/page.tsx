@@ -68,8 +68,13 @@ export default function AskPage() {
         }
         const data = (await res.json()) as AskResponse
         setResult(data)
-      } catch (err: any) {
-        setError(err?.message ?? "Unknown error")
+      } catch (err: unknown) {
+        const message = err instanceof Error
+          ? err.message
+          : typeof err === "string"
+          ? err
+          : "Unknown error"
+        setError(message)
       } finally {
         setLoading(false)
       }
